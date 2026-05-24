@@ -27,7 +27,8 @@ vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result cursor centered" 
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result cursor centered" })
 
 -- Replace every word under the cursor globally
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word cursor is on globally" })
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "Replace word cursor is on globally" })
 
 -- Make a file executable (chmod shortcut)
 vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
