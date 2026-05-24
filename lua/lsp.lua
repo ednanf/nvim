@@ -20,10 +20,16 @@ vim.lsp.config("lua_ls", {
     },
 })
 
-vim.lsp.enable({
-    "lua_ls",
-    "marksman",
-    "gopls",
-    "rust_analyzer",
+-- Add LSP downloaded on mason on this list (unless it's something like Prettier)
+local servers = {
     "vtsls",
-})
+    "eslint-lsp",
+    "tailwindcss-language-server",
+    "html-lsp",
+    "json-lsp",
+    "lua-language-server",
+    "rust-analyzer",
+    "marksman",
+}
+
+vim.lsp.enable(servers)
