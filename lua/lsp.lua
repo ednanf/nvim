@@ -1,7 +1,11 @@
 require("mason").setup()
 
+-- <leader>f will use `conform` plugin only for languages with no built-in formatters,
+-- thus lsp_format = "fallback"
+vim.keymap.set("n", "<leader>f", function()
+    require("conform").format({ async = true, lsp_format = "fallback" })
+end, { desc = "Format local buffer with Conform" })
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format Local buffer" })
 vim.keymap.set("n", "df", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 
 vim.diagnostic.config({ virtual_text = true })
@@ -21,13 +25,14 @@ vim.lsp.config("lua_ls", {
 })
 
 -- Add LSP downloaded on mason on this list (unless it's something like Prettier)
+-- The names are specific from Neovim's official names and not the Mason names
 local servers = {
     "vtsls",
-    "eslint-lsp",
-    "tailwindcss-language-server",
-    "html-lsp",
-    "json-lsp",
-    "lua-language-server",
+    "eslint",
+    "tailwindcss",
+    "html",
+    "jsonls",
+    "lua_ls",
     "rust-analyzer",
     "marksman",
 }

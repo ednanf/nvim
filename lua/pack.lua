@@ -5,6 +5,8 @@ vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
+    { src = "https://github.com/tpope/vim-fugitive" },
+    { src = "https://github.com/stevearc/conform.nvim" },
 })
 
 -- IMPORTANT: it is necessary to also install tree-sitter via brew
@@ -32,7 +34,7 @@ MiniFiles.setup({
 
 ---- MINI NOTIFY ----
 require("mini.notify").setup({
-	-- only show messages
+    -- only show messages
     content = {
         format = function(notif)
             return notif.msg
@@ -75,7 +77,8 @@ MiniExtra.setup()
 
 -- keymaps
 vim.keymap.set("n", "<leader>pf", function() MiniPick.builtin.files() end, { desc = "Mini File Picker" })
-vim.keymap.set("n", "<leader>ps", function() MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") }) end, { desc = "Grep word/Search word" })
+vim.keymap.set("n", "<leader>ps", function() MiniPick.builtin.grep({ pattern = vim.fn.expand("<cword>") }) end,
+    { desc = "Grep word/Search word" })
 vim.keymap.set("n", "<leader>vh", function() MiniPick.builtin.help() end, { desc = "Mini Help" })
 
 vim.keymap.set("n", "<leader>xx", function() MiniExtra.pickers.diagnostic() end, { desc = "Mini Picker Diagnostics" })
@@ -103,6 +106,36 @@ MiniSnippets.setup({
     },
 })
 MiniSnippets.start_lsp_server({ match = false })
+
+---- MINI DIFF ----
+local MiniDiff = require("mini.diff")
+MiniDiff.setup({
+    source = MiniDiff.gen_source.git({ index = false }),
+})
+
+vim.keymap.set("n", "[h", function() MiniDiff.goto_hunk("prev") end, { desc = "Prev hunk" })
+vim.keymap.set("n", "]h", function() MiniDiff.goto_hunk("next") end, { desc = "Next hunk" })
+
+vim.keymap.set("n", "<leader>gg", "<cmd>tabnew | Git | only<cr>", { desc = "Fugitive Full Page New Tab" })
+vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<CR>", { desc = "Git diff split", })
+
+---- CONFORM (FORMATTING) ----
+require("conform").setup({
+    formatters_by_ft = {
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
+        json = { "prettier" },
+        html = { "prettier" }, -- { "htmlbeautifier" } is an alternative 
+        css = { "prettier" },
+        markdown = { "prettier" },
+    },
+        format_on_save = {
+            timeout_ms = 500,
+            lsp_format = "fallback",
+    },
+})
 
 ---- TREESITTER LOADING ----
 require("treesitter")
