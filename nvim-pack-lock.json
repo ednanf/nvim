@@ -1,0 +1,12 @@
+{
+  "plugins": {
+    "mini.nvim": {
+      "rev": "44657837c7338e52727facc85c1d95bec1f6bd7c",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "orng.nvim": {
+      "rev": "bbe4c260ffebe4f80968273c9fab6fcb672bffb3",
+      "src": "https://github.com/roerohan/orng.nvim"
+    }
+  }
+}
