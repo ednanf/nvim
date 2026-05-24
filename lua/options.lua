@@ -68,3 +68,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.hl.on_yank()
     end,
 })
+
+-- SETTINGS: Plugins-related tweaks ============================================
+
+-- Improve Mini Picker behavior
+vim.opt.completeopt = "menuone,noselect,fuzzy,nosort"
+vim.opt.shortmess:append("c")

@@ -1,7 +1,13 @@
 vim.pack.add({
     { src = "https://github.com/roerohan/orng.nvim" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
+    { src = "https://github.com/rafamadriz/friendly-snippets" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/mason-org/mason.nvim" },
 })
+
+-- IMPORTANT: it is necessary to also install tree-sitter via brew
 
 ---- MINI FILES ----
 local MiniFiles = require("mini.files")
@@ -42,7 +48,6 @@ require("mini.cmdline").setup({
 
 ---- MINI SURROUND ----
 -- Add the ability to surround selected lines with {}, {}, and etc.
-require("mini.surround").setup()
 
 -- Default Keymaps
 -- | `sa`      | Add surrounding or Direct with 'saiw' |
@@ -53,6 +58,8 @@ require("mini.surround").setup()
 -- | `sh`      | Highlight surrounding                 |
 -- | `sn`      | Update n_lines                        |
 -- | `l` / `n` | as suffix for prev/next               |
+
+require("mini.surround").setup()
 
 ---- MINI PICKER ----
 -- Simple file picker and grep
@@ -73,3 +80,32 @@ vim.keymap.set("n", "<leader>vh", function() MiniPick.builtin.help() end, { desc
 
 vim.keymap.set("n", "<leader>xx", function() MiniExtra.pickers.diagnostic() end, { desc = "Mini Picker Diagnostics" })
 vim.keymap.set("n", "<leader>pk", function() MiniExtra.pickers.keymaps() end, { desc = 'Search keymaps' })
+
+---- MINI COMPLETIONS ----
+require("mini.completion").setup({
+    lsp_completion = {
+        auto_setup = true,
+        process_items = function(items, base)
+            return MiniCompletion.default_process_items(items, base, {
+                filtersort = "fuzzy",
+            })
+        end,
+    }
+})
+
+---- MINI SNIPPETS ----
+-- This is the plugin that shows windows with snippets like an IDE
+-- It uses frinedly snippets (plugin) to populate
+local MiniSnippets = require("mini.snippets")
+MiniSnippets.setup({
+    snippets = {
+        MiniSnippets.gen_loader.from_lang(), -- loads friendly-snippets
+    },
+})
+MiniSnippets.start_lsp_server({ match = false })
+
+---- TREESITTER LOADING ----
+require("treesitter")
+
+---- LSP LOADING ----
+require("lsp")
