@@ -12,6 +12,20 @@ vim.pack.add({
 
 -- IMPORTANT: it is necessary to also install tree-sitter via brew
 
+---- MINI STARTER (DASHBOARD) ----
+local starter = require("mini.starter")
+starter.setup({
+    evaluate_single = true,
+    items = {
+        starter.sections.recent_files(5, false),
+        starter.sections.builtin_actions(),
+    },
+    content_hooks = {
+        starter.gen_hook.adding_bullet(),
+        starter.gen_hook.aligning("center", "center"),
+    },
+})
+
 ---- MINI FILES ----
 local MiniFiles = require("mini.files")
 
