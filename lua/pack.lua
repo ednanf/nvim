@@ -1,5 +1,6 @@
 vim.pack.add({
-    { src = "https://github.com/roerohan/orng.nvim" },
+    --{ src = "https://github.com/roerohan/orng.nvim" },
+    { src = "https://github.com/bluz71/vim-moonfly-colors",       name = "moonfly" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" },
@@ -127,13 +128,13 @@ require("conform").setup({
         javascriptreact = { "prettier" },
         typescriptreact = { "prettier" },
         json = { "prettier" },
-        html = { "prettier" }, -- { "htmlbeautifier" } is an alternative 
+        html = { "prettier" }, -- { "htmlbeautifier" } is an alternative
         css = { "prettier" },
         markdown = { "prettier" },
     },
-        format_on_save = {
-            timeout_ms = 500,
-            lsp_format = "fallback",
+    format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
     },
 })
 
