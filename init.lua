@@ -14,4 +14,4 @@ require("commands")
 require("pack")
 
 -- Load custom color scheme
-vim.cmd.colorscheme("moonfly")
+vim.cmd.colorscheme("naysayer")

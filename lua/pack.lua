@@ -1,6 +1,7 @@
 vim.pack.add({
-    --{ src = "https://github.com/roerohan/orng.nvim" },
+    { src = "https://github.com/roerohan/orng.nvim" },
     { src = "https://github.com/bluz71/vim-moonfly-colors",       name = "moonfly" },
+    { src = "https://github.com/RostislavArts/naysayer.nvim" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" },
@@ -12,19 +13,9 @@ vim.pack.add({
 
 -- IMPORTANT: it is necessary to also install tree-sitter via brew
 
----- MINI STARTER (DASHBOARD) ----
-local starter = require("mini.starter")
-starter.setup({
-    evaluate_single = true,
-    items = {
-        starter.sections.recent_files(5, false),
-        starter.sections.builtin_actions(),
-    },
-    content_hooks = {
-        starter.gen_hook.adding_bullet(),
-        starter.gen_hook.aligning("center", "center"),
-    },
-})
+---- MINI STARTER ----
+local MiniStarter = require('mini.starter')
+MiniStarter.setup({})
 
 ---- MINI FILES ----
 local MiniFiles = require("mini.files")
@@ -100,7 +91,8 @@ vim.keymap.set("n", "<leader>xx", function() MiniExtra.pickers.diagnostic() end,
 vim.keymap.set("n", "<leader>pk", function() MiniExtra.pickers.keymaps() end, { desc = 'Search keymaps' })
 
 ---- MINI COMPLETIONS ----
-require("mini.completion").setup({
+local MiniCompletion = require("mini.completion")
+MiniCompletion.setup({
     lsp_completion = {
         auto_setup = true,
         process_items = function(items, base)

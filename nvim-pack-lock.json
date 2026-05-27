@@ -20,6 +20,10 @@
       "rev": "1c0a9994bb6bb5b43859c67924aabd061c4b7905",
       "src": "https://github.com/bluz71/vim-moonfly-colors"
     },
+    "naysayer.nvim": {
+      "rev": "6c641ea0cfc5fbbc0777996320b2304c3811f246",
+      "src": "https://github.com/RostislavArts/naysayer.nvim"
+    },
     "nvim-lspconfig": {
       "rev": "a4ed4e761c400849e8c9f8bda33e5083f890268c",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -27,6 +31,10 @@
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "orng.nvim": {
+      "rev": "bbe4c260ffebe4f80968273c9fab6fcb672bffb3",
+      "src": "https://github.com/roerohan/orng.nvim"
     },
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
