@@ -25,18 +25,17 @@ vim.keymap.set("n", "-", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini 
 
 -- Press `<leader>-` to activate where the current file is open in the file system
 vim.keymap.set("n", "<leader>-", function()
-    MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-    MiniFiles.reveal_cwd()
+    local current_file = vim.api.nvim_buf_get_name(0)
+    
+    -- Verify the buffer has a name and actually exists on the filesystem
+    if current_file ~= "" and vim.uv.fs_stat(current_file) then
+        MiniFiles.open(current_file, false)
+        MiniFiles.reveal_cwd()
+    else
+        -- Fall back to the current working directory if it's a special/empty buffer
+        MiniFiles.open(nil, false)
+    end
 end, { desc = "Toggle into currently opened file" })
-
-MiniFiles.setup({
-    mappings = {
-        go_in = "<CR>",
-        go_in_plus = "L",
-        go_out = "_",
-        go_out_plus = "H",
-    },
-})
 
 ---- MINI NOTIFY ----
 require("mini.notify").setup({
