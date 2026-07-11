@@ -35,6 +35,7 @@ local servers = {
     "lua_ls",
     "rust-analyzer",
     "marksman",
+    "gopls",
 }
 
 vim.lsp.enable(servers)
