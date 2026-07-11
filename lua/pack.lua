@@ -37,6 +37,26 @@ vim.keymap.set("n", "<leader>-", function()
     end
 end, { desc = "Toggle into currently opened file" })
 
+---- MINI ICONS ----
+require("mini.icons").setup()
+
+---- MINI TABLINE ----
+-- Show open buffers at the top of the screen
+local MiniTabline = require("mini.tabline")
+MiniTabline.setup({
+    -- Show icons if you have a Nerd Font installed
+    show_icons = true,
+    -- Whether to set Neovim's 'tabline' option
+    set_vim_settings = true,
+})
+
+-- Convenient keymaps to cycle through your open buffers
+vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
+
+-- Close the current buffer without messing up your window splits
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
+
 ---- MINI NOTIFY ----
 require("mini.notify").setup({
     -- only show messages
@@ -99,8 +119,24 @@ MiniCompletion.setup({
                 filtersort = "fuzzy",
             })
         end,
+    },
+    -- Stop mini.completion from auto-mapping <CR> aggressively
+    mappings = {
+        force_twostep = '<C-Space>',
+        force_fallback = '<A-Space>',
     }
 })
+
+-- Handle autocomplete Enter cleanly ONLY when an autocomplete menu is actually open
+vim.keymap.set('i', '<CR>', function()
+    if vim.fn.pumvisible() ~= 0 then
+        -- If autocomplete popup is active, accept the selected item
+        return '<C-y>'
+    else
+        -- Otherwise act as a normal Enter key (which lets mini.pick handle it)
+        return '<CR>'
+    end
+end, { expr = true, replace_keycodes = true })
 
 ---- MINI SNIPPETS ----
 -- This is the plugin that shows windows with snippets like an IDE

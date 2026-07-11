@@ -1,3 +1,6 @@
+-- ALWAYS SET LEADER FIRST
+vim.g.mapleader = " "
+
 -- Replace the legacy UI (experimental)
 require("vim._core.ui2").enable({})
 
